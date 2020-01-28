@@ -4,8 +4,8 @@ typedef void HttpHandler(Request req, Response r);
 typedef void WsHandler(Socket s);
 
 class Server {
-  final Logger log = new Logger('start.server');
-  final List<Route> _routes = new List<Route>();
+  final Logger log = Logger('start.server');
+  final List<Route> _routes = List<Route>();
   HttpServer _server;
   VirtualDirectory _staticServer;
 
@@ -17,7 +17,6 @@ class Server {
 
   Future<Server> listen(String host, num port,
       {String certificateChain, String privateKey, String password}) {
-
     handle(HttpServer server) {
       _server = server;
       server.listen((HttpRequest req) {
@@ -38,20 +37,20 @@ class Server {
     }
 
     if (privateKey != null) {
-      var context = new SecurityContext();
+      var context = SecurityContext();
       if (certificateChain != null) {
-        var chain = new File(certificateChain);
+        var chain = File(certificateChain);
         context.useCertificateChain(chain.path);
       }
-      var key = new File(privateKey);
+      var key = File(privateKey);
       context.usePrivateKey(key.path, password: password);
       return HttpServer.bindSecure(host, port, context).then(handle);
     }
     return HttpServer.bind(host, port).then(handle);
   }
 
-  void static(path, { listing: true, links: true, jail: true }) {
-    _staticServer = new VirtualDirectory(path)
+  void static(path, {listing: true, links: true, jail: true}) {
+    _staticServer = VirtualDirectory(path)
       ..allowDirectoryListing = listing
       ..followLinks = links
       ..jailRoot = jail
@@ -59,48 +58,48 @@ class Server {
 
     _staticServer.directoryHandler = (Directory dir, HttpRequest req) {
       var filePath = '${dir.path}${Platform.pathSeparator}index.html';
-      var file = new File(filePath);
+      var file = File(filePath);
       _staticServer.serveFile(file, req);
     };
   }
 
-  Stream<Socket> ws(path, { List<String> keys }) {
-    var route = new Route.ws(path, keys: keys);
+  Stream<Socket> ws(path, {List<String> keys}) {
+    var route = Route.ws(path, keys: keys);
     _routes.add(route);
 
     return route.socketStream;
   }
 
-  Stream<Request> get(path, { List<String> keys }) {
-    Route route = new Route('get', path, keys: keys);
+  Stream<Request> get(path, {List<String> keys}) {
+    Route route = Route('get', path, keys: keys);
     _routes.add(route);
 
     return route.requestStream;
   }
 
-  Stream<Request> options(path, { List<String> keys }) {
-    var route = new Route('options', path, keys: keys);
+  Stream<Request> options(path, {List<String> keys}) {
+    var route = Route('options', path, keys: keys);
     _routes.add(route);
 
     return route.requestStream;
   }
 
-  Stream<Request> post(path, { List<String> keys }) {
-    var route = new Route('post', path, keys: keys);
+  Stream<Request> post(path, {List<String> keys}) {
+    var route = Route('post', path, keys: keys);
     _routes.add(route);
 
     return route.requestStream;
   }
 
-  Stream<Request> put(path, { List<String> keys }) {
-    var route = new Route('put', path, keys: keys);
+  Stream<Request> put(path, {List<String> keys}) {
+    var route = Route('put', path, keys: keys);
     _routes.add(route);
 
     return route.requestStream;
   }
 
-  Stream delete(path, { List<String> keys }) {
-    var route = new Route('delete', path, keys: keys);
+  Stream delete(path, {List<String> keys}) {
+    var route = Route('delete', path, keys: keys);
     _routes.add(route);
 
     return route.requestStream;

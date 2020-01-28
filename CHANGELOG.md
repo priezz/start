@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+Remove dependency on mirrors
+
 ## 0.4.0
 
 Fix Websockets

@@ -9,13 +9,12 @@ void main() {
   });
 
   start(port: 3000).then((Server app) {
-
     app.static('web', jail: false);
 
     app.get('/hello/:name.:lastname?').listen((request) {
       request.response
-        .header('Content-Type', 'text/html; charset=UTF-8')
-        .send('Hello, ${request.param('name')} ${request.param('lastname')}');
+          .header('Content-Type', 'text/html; charset=UTF-8')
+          .send('Hello, ${request.param('name')} ${request.param('lastname')}');
     });
 
     app.get('/file/:filename').listen((request) {
@@ -31,7 +30,9 @@ void main() {
             .header('Content-Type', 'text/html; charset=UTF-8')
             .add(payload['text'])
             .add('<br>')
-            .add('<img src="data:${file.mime};base64,${base64Encode(file.data)}" />')
+            .add(
+              '<img src="data:${file.mime};base64,${base64Encode(file.data)}" />',
+            )
             .add('<br>')
             .add(file.name)
             .send('');
@@ -49,7 +50,7 @@ void main() {
       });
 
       socket.onOpen.listen((ws) {
-        print('new socket opened');
+        print('socket opened');
       });
 
       socket.onClose.listen((ws) {

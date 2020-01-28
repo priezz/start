@@ -10,7 +10,7 @@ class Message {
 
   factory Message.fromPacket(String message) {
     if (message.isEmpty) {
-      return new Message.empty();
+      return Message.empty();
     }
 
     List<String> parts = message.split(':');
@@ -21,7 +21,7 @@ class Message {
       data = jsonDecode(parts.sublist(1).join(':'));
     }
 
-    return new Message(name, data);
+    return Message(name, data);
   }
 
   Message.empty() : this('');
