@@ -4,7 +4,6 @@ typedef void HttpHandler(Request req, Response r);
 typedef void WsHandler(Socket s);
 
 class Server {
-  final Logger log = Logger('start.server');
   final List<Route> _routes = List<Route>();
   HttpServer _server;
   VirtualDirectory _staticServer;
@@ -30,8 +29,6 @@ class Server {
           _send404(req);
         }
       });
-
-      log.fine('Server started, listening on $host:$port');
 
       return this;
     }

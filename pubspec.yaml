@@ -5,7 +5,6 @@ description: Sinatra inspired Web framework
 environment:
   sdk: '>=2.2.0 <3.0.0'
 dependencies:
-  logging: '>=0.11.3 <0.12.0'
   http_server: ^0.9.8+3
   http: ^0.12.0+4
   mime: ^0.9.6+3

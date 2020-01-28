@@ -2,7 +2,7 @@
 
 ## 0.5.0
 
-Remove dependency on mirrors
+Remove dependency on mirrors and logging
 
 ## 0.4.0
 
