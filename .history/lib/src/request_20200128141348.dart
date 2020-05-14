@@ -57,14 +57,9 @@ class Request {
     if (isMime('application/x-www-form-urlencoded')) {
       const AsciiDecoder().bind(_request).listen((content) {
         final payload = Map.fromIterable(
-          content.split('&').map((kvs) => kvs.split('=')),
-          key: (kv) => Uri.decodeQueryComponent(kv[0], encoding: enc),
-          value: (kv) => kv.length > 1
-              ? kv[1] == ''
-                  ? null
-                  : Uri.decodeQueryComponent(kv[1], encoding: enc)
-              : true,
-        );
+            content.split('&').map((kvs) => kvs.split('=')),
+            key: (kv) => Uri.decodeQueryComponent(kv[0], encoding: enc),
+            value: (kv) => Uri.decodeQueryComponent(kv[1], encoding: enc));
         completer.complete(payload);
       });
     } else if (isMime('multipart/form-data', loose: true)) {

@@ -60,10 +60,8 @@ class Request {
           content.split('&').map((kvs) => kvs.split('=')),
           key: (kv) => Uri.decodeQueryComponent(kv[0], encoding: enc),
           value: (kv) => kv.length > 1
-              ? kv[1] == ''
-                  ? null
-                  : Uri.decodeQueryComponent(kv[1], encoding: enc)
-              : true,
+              ? Uri.decodeQueryComponent(kv[1], encoding: enc)
+              : null,
         );
         completer.complete(payload);
       });
