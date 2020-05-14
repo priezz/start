@@ -5,11 +5,11 @@ class Response {
 
   Response(this._response);
 
-  Response header(String name, [value]) {
-    if (value == null) return this;
-
+  header(String name, [value]) {
+    if (value == null) {
+      return _response.headers[name];
+    }
     _response.headers.set(name, value);
-
     return this;
   }
 
@@ -103,15 +103,22 @@ class Response {
   }
 
   Future json(data) {
-    if (get('Content-Type') == null) type('application/json');
+    if (data is Map || data is List) {
+      data = jsonEncode(data);
+    }
 
-    return send(jsonEncode(data));
+    if (get('Content-Type') == null) {
+      type('application/json');
+    }
+
+    return send(data);
   }
 
   Future jsonp(String name, data) {
-    if (data is! Map) return null;
-
-    return send("$name('${jsonEncode(data)}');");
+    if (data is Map) {
+      data = jsonEncode(data);
+    }
+    return send("$name('$data');");
   }
 
   Future redirect(String url, [int code = 302]) {

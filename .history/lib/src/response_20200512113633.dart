@@ -109,9 +109,9 @@ class Response {
   }
 
   Future jsonp(String name, data) {
-    if (data is! Map) return null;
-
-    return send("$name('${jsonEncode(data)}');");
+    if (data is Map) {
+      return send("$name('${jsonEncode(data)}');");
+    }
   }
 
   Future redirect(String url, [int code = 302]) {

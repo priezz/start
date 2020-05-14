@@ -22,9 +22,10 @@ class Route {
         .map((WebSocket ws) => Socket(ws));
   }
 
-  bool match(HttpRequest req) =>
-      // (_method == req.method || _method == 'WS') &&
-      _path['regexp'].hasMatch(req.uri.path);
+  bool match(HttpRequest req) {
+    return ((_method == req.method || _method == 'WS') &&
+        _path['regexp'].hasMatch(req.uri.path));
+  }
 
   void handle(HttpRequest req) {
     if (_method == 'WS') {

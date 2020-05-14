@@ -1,5 +1,5 @@
 name: start
-version: 0.6.0
+version: 0.5.0
 homepage: http://github.com/priezz/start
 description: Sinatra inspired Web framework
 environment:
@@ -10,5 +10,5 @@ dependencies:
   mime: ^0.9.6+3
 
 dev_dependencies:
-  test: '>=1.9.4 <2.0.0'
+  test: '>=1.9.4 <1.10.0'
   mockito: ^4.1.1

@@ -1,5 +1,5 @@
 name: start
-version: 0.6.0
+version: 0.5.0
 homepage: http://github.com/priezz/start
 description: Sinatra inspired Web framework
 environment:
