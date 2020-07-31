@@ -68,13 +68,14 @@ class Request {
         completer.complete(payload);
       });
     } else if (isMime('multipart/form-data')) {
-      var boundary = _request.headers.contentType.parameters['boundary'];
+      final boundary = _request.headers.contentType.parameters['boundary'];
       final payload = Map();
+
       MimeMultipartTransformer(boundary)
           .bind(_request)
           .map(HttpMultipartFormData.parse)
           .listen((HttpMultipartFormData formData) {
-        var parameters = formData.contentDisposition.parameters;
+        final parameters = formData.contentDisposition.parameters;
         formData.listen((data) {
           if (formData.contentType != null) {
             data = Upload(parameters['filename'], formData.contentType.mimeType,
@@ -85,11 +86,18 @@ class Request {
       }, onDone: () {
         completer.complete(payload);
       });
-    } else if (isMime('application/json')) {
+      // } else if (isMime('application/json')) {
+    } else {
       final String content =
           await _request.cast<List<int>>().transform(utf8.decoder).join();
-      return jsonDecode(content);
+
+      try {
+        return jsonDecode(content);
+      } catch (_) {
+        return {'content': content};
+      }
     }
+
     return completer.future;
   }
 }

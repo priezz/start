@@ -5,3 +5,4 @@ packages
 pubspec.lock
 .vscode/launch.json
 .dart_tool/
+.history
