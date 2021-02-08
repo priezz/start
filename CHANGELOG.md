@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+Upgrade dependencies, temporarily move http_server code into src.
+
 ## 0.7.0
 
 Try to parse POST payload as JSON even when content type is text.
