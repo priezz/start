@@ -4,7 +4,7 @@ typedef void HttpHandler(Request req, Response r);
 typedef void WsHandler(Socket s);
 
 class Server {
-  final List<Route> _routes = List<Route>();
+  final List<Route> _routes = [];
   HttpServer _server;
   VirtualDirectory _staticServer;
 
